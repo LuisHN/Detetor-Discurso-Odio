@@ -1,0 +1,24 @@
+{
+  "name": "Detetor discurso de ódio",
+  "description": "Detetor de discurso de ódio em lingua portuguesa",
+  "version": "1.0.3",
+  "permissions": ["background", "tabs", "storage"],
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["contentScript.js"],
+      "run_at": "document_end"
+    }
+  ],
+  "icons" : {
+    "128" : "images/get_started128.png",
+    "48" : "images/get_started48.png",
+    "16" : "images/get_started16.png"  
+  },
+  "action": {
+    "default_popup": "index.html",
+    "default_title": "Detetor discurso de ódio"
+  }, 
+  "host_permissions": ["<all_urls>"],
+  "manifest_version": 3
+}
