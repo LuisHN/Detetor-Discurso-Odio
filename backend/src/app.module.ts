@@ -13,7 +13,7 @@ import { BullModule } from '@nestjs/bull';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({ isGlobal: true }),
+    ConfigModule.forRoot({ envFilePath: '.env', isGlobal: true }),
     BullModule.forRoot({
       redis: {
         host: 'localhost',
