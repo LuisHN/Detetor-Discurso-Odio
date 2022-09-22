@@ -1,0 +1,34 @@
+{
+    "host": "http://localhost",
+    "port": 4242,
+    "whitelisted_ips": [
+        "127.0.0.1",
+        "::1"
+    ],
+    "live_data": {
+        "youtube": {
+            "enabled": true,
+            "client_id": "MY_CLIENT_ID",
+            "client_secret": "MY_CLIENT_SECRET",
+            "redirect_url": "/youtube/callback"
+        },
+        "twitch": {
+            "enabled": true,
+            "channel": "rtparenacsgo"
+        },
+        "hitbox": {
+            "enabled": true,
+            "channel": "MY_CHANNEL"
+        },
+        "beam": {
+            "enabled": true,
+            "username": "MY_USERNAME",
+            "password": "MY_PASSWORD"
+        },
+        "dailymotion": {
+            "enabled": true,
+            "room": "MY_ROOM",
+            "grosminet_endpoint": "http://dmchat.dailymotion.com:80"
+        }
+    }
+}
