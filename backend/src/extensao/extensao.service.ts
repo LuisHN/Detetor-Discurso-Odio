@@ -47,18 +47,14 @@ export class ExtensaoService {
 
   async StringsByHash(hash: string) {
     const classString = await this.connection.query(
-      'SELECT * FROM strings WHERE clientHash = ? and deleted = 0 ;',
+      'SELECT id, string, classification FROM strings WHERE clientHash = ? and deleted = 0 ;',
       [hash],
     );
 
     if (!classString) {
       throw new NotFoundException();
     }
-    const result = classString[0].map(
-      ({ clientHash, deleted, created_at, updated_at, ...keepAttr }) =>
-        keepAttr,
-    );
 
-    return result;
+    return classString[0];
   }
 }

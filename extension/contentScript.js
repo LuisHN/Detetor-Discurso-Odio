@@ -71,19 +71,26 @@ const init = function(){
 
   const saveStringsInStorage = function(stringArr) {
     let storageStrings = [];
+    let control = storageStrings;
 
     chrome.storage.local.get('hateSpeech', function(result) {
         storageStrings = result.hateSpeech;
+        
         if(storageStrings) { 
           storageStrings = storageStrings.split('$$')
-          storageStrings = stringArr.filter((s) => !storageStrings.find((ss) => ss == s))  
+          control = storageStrings;
+          storageStrings = [...storageStrings, ...stringArr.filter((s) => !storageStrings.find((ss) => ss == s))]   
         } else {
           storageStrings = stringArr
         }
-          
-        chrome.storage.local.set({"hateSpeech": storageStrings.join('$$')}, function(value) {
-            sendStrings(storageStrings)
+
+        if (control.length != storageStrings.length) {
+          control = storageStrings.filter((s) => !control.find((ss) => s == ss))
+          chrome.storage.local.set({"hateSpeech": storageStrings.join('$$')}, function(value) {
+            sendStrings(control)
         });
+        }
+
     }); 
   }
 

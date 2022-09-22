@@ -2,7 +2,7 @@
   "name": "Detetor discurso de ódio",
   "description": "Detetor de discurso de ódio em lingua portuguesa",
   "version": "1.0.3",
-  "permissions": ["background", "tabs", "storage"],
+  "permissions": ["storage"],
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
