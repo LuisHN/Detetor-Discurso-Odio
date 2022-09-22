@@ -37,7 +37,12 @@ export class ClassificadorController {
   }
 
   @Post()
-  @ApiOperation({ summary: 'Insere uma classificação num determinado item.' })
+  @ApiOperation({ summary: 'Insere um item para ser classificado.' })
+  @ApiResponse({
+    status: 200,
+    description:
+      'Retorna um identificador para consultar a classificação caso esta demore mais de 30 segundos.',
+  })
   @HttpCode(204)
   getClassification(@Body() getClassificadorDTO: GetClassificadorDTO) {
     return this.classificadorService.getClassification(getClassificadorDTO);

@@ -26,20 +26,22 @@ CREATE TABLE IF NOT EXISTS classification
     deleted INT DEFAULT 0,
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ,
     updated_at    DATETIME on UPDATE CURRENT_TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-          constraint strings_pk
+    constraint strings_pk
             primary key (id)
+
 );
 
 
 CREATE TABLE IF NOT EXISTS database_ORIG
 (
     id INT auto_increment,
-    string VARCHAR(255) NOT NULL,
+    string VARCHAR(255)  NOT NULL,
     clientHash VARCHAR(255),
     classified   INT DEFAULT 0,
     deleted   INT DEFAULT 0,
     created_at    DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ,
     updated_at    DATETIME on UPDATE CURRENT_TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
           constraint strings_pk
-            primary key (id)
+            primary key (id),
+    UNIQUE (string)
 );
