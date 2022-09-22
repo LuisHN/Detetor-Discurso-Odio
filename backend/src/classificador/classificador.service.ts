@@ -10,6 +10,7 @@ import { Connection } from 'mysql2';
 import { CreateClassificadorDTO } from './create-classsificador.dto';
 import { DeleteClassificadorDTO } from './delete-classsificador.dto';
 import { query } from 'express';
+import { GetClassificadorDTO } from './get-classsificador.dto';
 
 @Injectable()
 export class ClassificadorService {
@@ -39,6 +40,10 @@ export class ClassificadorService {
       throw new NotFoundException();
     }
     return classString[0];
+  }
+
+  async getClassification(getClassificadorDTO: GetClassificadorDTO) {
+    //insert into job queue urgents
   }
 
   async setClassification(createClassificadorDTO: CreateClassificadorDTO) {
