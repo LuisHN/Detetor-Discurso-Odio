@@ -8,7 +8,7 @@ import { ApiService } from 'src/app/services/api.service';
 })
 export class TableComponent implements OnInit {
   public title = 'Listar By Hash';
-  public strings = [];
+  public strings: any = [];
   public hash: any = '';
   public subscriptions: Subscription[] = [];
   constructor(private apiService: ApiService) { }

@@ -91,8 +91,8 @@
       </thead>
       <tbody>
         <tr *ngFor="let item of strings">
-          <td>Lorem ipsum dolor sit amet</td>
-          <td>Ódio</td>
+          <td>{{item?.string}}</td>
+          <td>{{item?.classification == 1 ? 'Ódio' : 'Normal'}}</td>
           <td>
             <button
               class="btn btn-primary"
