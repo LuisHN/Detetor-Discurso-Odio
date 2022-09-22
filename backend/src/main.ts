@@ -8,7 +8,6 @@ async function bootstrap() {
     .setTitle('Detetor automático de Discurso de Ódio em Lingua Portuguesa')
     .setDescription('')
     .setVersion('1.0')
-    .addTag('Classificador')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
