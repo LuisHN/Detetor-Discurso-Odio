@@ -23,7 +23,7 @@ export class TableComponent implements OnInit {
   getRequestByHash() {
     this.subscriptions.push(this.apiService.getRequestByHash(this.hash)
     .subscribe((res: any) => {
-      this.strings = res.body;
+      this.strings = res; 
     },
     err => {
 
