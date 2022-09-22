@@ -1,27 +1,28 @@
 
 
- getStorageHash()
 
  const getStorageHash = function () {
     chrome.storage.local.get('hateSpeech-hash', function(result) {
       hash = result['hateSpeech-hash'];
       document.getElementById("hash").innerHTML= hash;
-      console.log("aquiiiii",hash)
       if (!hash) {
-        var xhr = new XMLHttpRequest();
-        xhr.withCredentials = true;
-
-        xhr.addEventListener("readystatechange", function() {
-          if(this.readyState === 4) {
-            chrome.storage.local.set({"hateSpeech-hash": hash}, function(value) { 
-              document.getElementById("hash").innerHTML= hash;
+        var requestOptions = {
+          method: 'GET',
+          redirect: 'follow'
+        };
+        
+        fetch("https://api.dadol.pt/extensao/hash", requestOptions)
+          .then(response => response.text())
+          .then(result =>  { 
+            chrome.storage.local.set({"hateSpeech-hash": result}, function(value) { 
+              document.getElementById("hash").innerHTML= result;
+              console.log(result)
           });
-          }
-        });
-
-      //  xhr.open("GET", "https://api.dadol.pt/extensao/hash");
-
-       // xhr.send();
+          })
+          .catch(error => console.log('error', error));
       }
     });  
   }
+
+
+ getStorageHash()

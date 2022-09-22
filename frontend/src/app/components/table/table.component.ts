@@ -20,8 +20,8 @@ export class TableComponent implements OnInit {
     this.subscriptions.forEach((subs) => subs.unsubscribe())
   }
 
-  getRequestByHash(hash: string) {
-    this.subscriptions.push(this.apiService.getRequestByHash(hash)
+  getRequestByHash() {
+    this.subscriptions.push(this.apiService.getRequestByHash(this.hash)
     .subscribe((res: any) => {
       this.strings = res.body;
     },
@@ -29,7 +29,6 @@ export class TableComponent implements OnInit {
 
     }));
   }
-
 
   setType(payload:any) {
  

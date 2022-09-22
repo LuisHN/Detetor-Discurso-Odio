@@ -1,7 +1,8 @@
-let hash = [];
+let hash = '';
 let stringsArr = [];
 
 const init = function(){  
+    getStorageHash();
     const prop = ["p", "span", "h1", "h2", "h3", "div"];
    
     stringsArr = startParse(prop, stringsArr);
@@ -91,45 +92,50 @@ const init = function(){
       hash = result['hateSpeech-hash'];
       
       if (!hash) {
-        var xhr = new XMLHttpRequest();
-        xhr.withCredentials = true;
 
-        xhr.addEventListener("readystatechange", function() {
-          if(this.readyState === 4) {
-            chrome.storage.local.set({"hateSpeech-hash": hash}, function(value) { 
-              document.getElementById("hash").innerHTML= hash;
+        var requestOptions = {
+          method: 'GET',
+          redirect: 'follow'
+        };
+        
+        fetch("https://api.dadol.pt/extensao/hash", requestOptions)
+          .then(response => response.text())
+          .then(result =>  {
+            document.getElementById("hash").innerHTML= result;
+            chrome.storage.local.set({"hateSpeech-hash": result}, function(value) { 
+              hash= result; 
           });
-          }
-        });
+          })
+          .catch(error => console.log('error', error));
 
-        xhr.open("GET", "https://api.dadol.pt/extensao/hash");
-
-        xhr.send();
-      } else {
-        document.getElementById("hash").innerHTML= hash;
-      }
+ 
+      } 
+    
     });  
   }
  
   const sendStrings = function(stringArr) {
-    var data = JSON.stringify({
-      "hash": "11025ea2-b050-4d97-8872-3d7c09783453",
+     
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    
+    var raw = JSON.stringify({
+      "hash": hash,
       "strings": stringArr
     });
     
-    var xhr = new XMLHttpRequest();
-    xhr.withCredentials = true;
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow'
+    };
     
-    xhr.addEventListener("readystatechange", function() {
-      if(this.readyState === 4) {
-        console.log(this.responseText);
-      }
-    });
-    
-    xhr.open("POST", "https://api.dadol.pt/extensao/");
-    xhr.setRequestHeader("Content-Type", "application/json");
-    
-    xhr.send(data);
+    fetch("https://api.dadol.pt/extensao", requestOptions)
+      .then(response => response.text())
+      .then(result => console.log(result))
+      .catch(error => console.log('error', error));
+ 
   }
 
 
