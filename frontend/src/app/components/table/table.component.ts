@@ -8,7 +8,7 @@ import { ApiService } from 'src/app/services/api.service';
 })
 export class TableComponent implements OnInit {
   public title = 'Listar By Hash';
-  public strings = [];
+  public strings: any = [];
   public hash: any = '';
   public subscriptions: Subscription[] = [];
   constructor(private apiService: ApiService) { }
@@ -23,7 +23,7 @@ export class TableComponent implements OnInit {
   getRequestByHash() {
     this.subscriptions.push(this.apiService.getRequestByHash(this.hash)
     .subscribe((res: any) => {
-      this.strings = res.body;
+      this.strings = res; 
     },
     err => {
 
