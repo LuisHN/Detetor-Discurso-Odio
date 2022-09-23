@@ -1,14 +1,9 @@
 #!/bin/bash
-
 sudo su
-
 # Update / Upgrade apt packages
 apt update
 apt dist-upgrade -y
-
-
 # Install system dependencies
-
 apt install -y \
   bash-completion \
   curl \
@@ -28,9 +23,7 @@ apt install -y \
   python3 \
   python3-venv \
   libaugeas0
-
 # Install docker
-
 apt-get update && apt-get install -y apt-transport-https ca-certificates curl software-properties-common
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
 apt-key fingerprint 0EBFCD88 | grep docker@docker.com || exit 1
@@ -38,22 +31,14 @@ add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(
 apt-get update
 apt-get install -y docker-ce
 docker run --rm hello-world
-
-
 # Config docker
-
 groupadd docker
 usermod -aG docker $USER
 systemctl restart docker
-
-
 # Config Dev dependencies
-
 npm install -g @angular/cli
 npm i -g @nestjs/cli
-
 # Config Firewall
-
 firewall-cmd --permanent --zone=public --add-service=http
 
 # Config and install Certbot
