@@ -29,22 +29,58 @@ export class ExtensaoService {
   }
 
   private validateLanguage(string: string) {
-    const prev = lngDetector.detect(string, 4);
+    const prev = lngDetector.detect(string, 3);
 
     return prev.some((itm: any) => itm[0] == 'portuguese');
   }
 
-  async addStrings(createExtensaoDTO: CreateExtensaoDTO) {
+  private isValidString(string: string) {
+    const badWords = [
+      'Conteúdo partilhado com',
+      'amigos em comum',
+      'Ver mais',
+      'respostas anteriores',
+      'Ver comentários anteriores',
+      'Vídeos do Reels',
+      'outras pessoas',
+      'comentou.',
+    ];
+
+    return !badWords.some((substring) => string.includes(substring));
+  }
+
+  private cleanString(string: string) {
+    //remove email
+    string = string.replace(
+      /([^.@\s]+)(\.[^.@\s]+)*@([^.@\s]+\.)+([^.@\s]+)/,
+      '',
+    );
+    //remove emojis
+    string = string.replaceAll(
+      /([\u2700-\u27BF]|[\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[\u2011-\u26FF]|\uD83E[\uDD10-\uDDFF])/g,
+      '',
+    );
+    //remove nbsp
+    string = string.replaceAll(/\&nbsp;/g, '');
+
+    return string;
+  }
+
+  async addStrings(
+    createExtensaoDTO: CreateExtensaoDTO,
+    _isClassificador = false,
+  ) {
     return new Promise(async (resolve) => {
       try {
         const { strings, hash } = createExtensaoDTO;
 
         strings.forEach(async (st: string) => {
-          if (this.validateLanguage(st)) {
+          if ((this.validateLanguage(st), this.isValidString(st))) {
+            const newString = this.cleanString(st);
             try {
               await this.connection.query(
                 'insert IGNORE into database_ORIG (string, clientHash) values (?,?)',
-                [st, hash],
+                [newString, hash],
               );
             } catch (err) {}
           }
@@ -54,8 +90,12 @@ export class ExtensaoService {
           [strings, hash],
         );
 
+        const channel = _isClassificador
+          ? 'channel-classificador'
+          : 'channel-extensao';
+
         result[0].forEach(async (item: any) => {
-          await publisher.publish('channel-classificador', String(item.id));
+          await publisher.publish(channel, String(item.id));
         });
 
         resolve(true);

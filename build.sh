@@ -17,6 +17,8 @@ pip install -r requirements.txt
 
 pm2 stop all
 pm2 start classificador.py --name classificador --interpreter python3
+pm2 start classificador-extensao.py classificador-extensao --interpreter python3
+
 
 cd  /opt/work/Detetor-Discurso-Odio/backend/dist
 pm2 start dist/main.js --name backend

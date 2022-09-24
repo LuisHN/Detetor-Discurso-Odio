@@ -21,7 +21,7 @@ export class ClassificadorService {
 
   async getOneString() {
     const classString = await this.connection.query(
-      'SELECT * FROM strings WHERE needClassification = 1 and sortedByOwner = 1 and deleted < 2 limit 1;',
+      'SELECT * FROM strings WHERE needClassification = 1 and sortedByOwner = 1 and deleted < 2 ORDER BY RAND() limit 1;',
     );
 
     if (!classString || classString[0].length == 0) {
@@ -50,10 +50,13 @@ export class ClassificadorService {
     const hash = this.extensaoService.getHash();
 
     this.extensaoService
-      .addStrings({
-        strings: [getClassificadorDTO.string],
-        hash,
-      })
+      .addStrings(
+        {
+          strings: [getClassificadorDTO.string],
+          hash,
+        },
+        true,
+      )
       .then()
       .catch();
 
