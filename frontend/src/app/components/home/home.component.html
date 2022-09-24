@@ -135,7 +135,7 @@
   </div>
 </div>
 
-<div class="col-12">
+<div class="col-12" *ngIf="response">
   <h3>Resultados</h3>
   <p><b>Hash:</b> {{response?.hash}}</p>
   <div *ngIf="response?.classification?.length != 0">
@@ -146,8 +146,6 @@
   <div *ngIf="response?.classification?.length == 0">
     <p>Resultados pendentes. Consulte mais tarde la tab lista Hash.</p>
   </div>
-  
 
-  {{response | json}}
 </div>
 
