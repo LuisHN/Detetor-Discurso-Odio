@@ -14,7 +14,7 @@ def getInformation(id):
                                              password='pdadolp#2022')
         if connection.is_connected():
             cursor = connection.cursor()
-            sql = "select string, clientHash from database_ORIG  WHERE id = %s ;" 
+            sql = "select string, clientHash from database_ORIG  WHERE id = %s and classified = 0;" 
             cursor.execute(sql, (id,))
             myresult = cursor.fetchall()
             connection.commit()
@@ -47,7 +47,7 @@ def setClassification(id, classification, string, hash):
             sql = "UPDATE database_ORIG SET classified = 1 WHERE id = %s ;"
             val = (id,)
             cursor.execute(sql, val)
-            sql = "INSERT INTO strings (string, clientHash, classification) values (%s, %s, %s);"
+            sql = "INSERT IGNORE INTO strings (string, clientHash, classification) values (%s, %s, %s);"
             val = (string, hash, classification)
             cursor.execute(sql, val)
             connection.commit()

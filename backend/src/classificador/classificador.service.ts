@@ -12,7 +12,6 @@ import { DeleteClassificadorDTO } from './delete-classsificador.dto';
 import { GetClassificadorDTO } from './get-classsificador.dto';
 import { ExtensaoService } from 'src/extensao/extensao.service';
 
-
 @Injectable()
 export class ClassificadorService {
   delay = (ms) => new Promise((res) => setTimeout(res, ms));
@@ -20,7 +19,7 @@ export class ClassificadorService {
     @InjectClient() private readonly connection: Connection,
     private extensaoService: ExtensaoService,
   ) {}
-  
+
   async getOneString() {
     const classString = await this.connection.query(
       'SELECT * FROM classification WHERE needClassification = 1 and deleted < 2 limit 1;',

@@ -10,7 +10,8 @@ CREATE TABLE IF NOT EXISTS strings
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ,
     updated_at    DATETIME on UPDATE CURRENT_TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
       constraint strings_pk
-            primary key (id)
+            primary key (id),
+    UNIQUE (string)
 );
 
 
