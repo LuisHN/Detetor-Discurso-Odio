@@ -1,8 +1,16 @@
-import { Body, Controller, Delete, Get, HttpCode, Post, Put } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpCode,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ClassificadorService } from './classificador.service';
 import { CreateClassificadorDTO } from './create-classsificador.dto';
-import { DeleteClassificadorDTO } from './delete-classsificador.dto';
 import { GetClassificadorDTO } from './get-classsificador.dto';
 
 @ApiTags('classificador')
@@ -26,14 +34,13 @@ export class ClassificadorController {
     return this.classificadorService.setClassification(createClassificadorDTO);
   }
 
-  @Delete()
+  @Delete(':id/:isOwner')
   @ApiOperation({
     summary: 'Inserir uma intenção de eliminar um determinado item.',
   })
   @ApiResponse({ status: 204, description: 'Deleted.' })
-  @HttpCode(204)
-  deleteString(@Body() deleteClassificadorDTO: DeleteClassificadorDTO) {
-    return this.classificadorService.deleteString(deleteClassificadorDTO);
+  deleteString(@Param('id') id, @Param('isOwner') isOwner) {
+    return this.classificadorService.deleteString(id, isOwner);
   }
 
   @Post()

@@ -30,12 +30,25 @@ export class TableComponent implements OnInit {
     }));
   }
 
-  setType(payload:any) {
- 
+  setType(payload: any) {
+    payload['isOwner']  = 1;
+    this.subscriptions.push(this.apiService.putRequest(payload)
+        .subscribe((res:any) => {
+          this.getRequestByHash();
+        },
+            err=> { 
+               alert("Ocorreu um erro. tente novamente")
+            }))
   }
 
-  remove(){
- 
+  remove(id: any){ 
+    this.subscriptions.push(this.apiService.deleteRequest(id, 1)
+        .subscribe((res:any) => {
+              this.getRequestByHash();
+            },
+            err=> { 
+              alert("Ocorreu um erro. tente novamente")
+            }))
   }
 
 }

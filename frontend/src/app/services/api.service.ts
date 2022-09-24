@@ -26,11 +26,11 @@ export class ApiService {
     return this.http.post(`https://api.dadol.pt/classificador`, body,  {...this.httpOptions,   observe: 'response'}) ;
   }
 
-  putRequest( body:any, id:any){
-    return this.http.put(`https://api.dadol.pt/classificador/${id}`, body,  {...this.httpOptions,   observe: 'response'}) ;
+  putRequest( body:any,){
+    return this.http.put(`https://api.dadol.pt/classificador`, body,  {...this.httpOptions,   observe: 'response'}) ;
   }
 
-  deleteRequest( id:any){
-    return this.http.delete(`https://api.dadol.pt/classificador/${id}`,  {...this.httpOptions,   observe: 'response'}) ;
+  deleteRequest( id:any, isOwner: any){
+    return this.http.delete(`https://api.dadol.pt/classificador/${id}/${isOwner}`, {...this.httpOptions,   observe: 'response'}) ;
   }
 }

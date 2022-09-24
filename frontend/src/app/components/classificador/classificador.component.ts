@@ -30,7 +30,8 @@ export class ClassificadorComponent implements OnInit {
 
   setType(payload:any) {
     this.lock = true;
-    this.subs.push(this.apiService.putRequest(payload, this.frase.id)
+    payload['id'] = this.frase.id;
+    this.subs.push(this.apiService.putRequest(payload)
         .subscribe((res:any) => {
           this.getNew();
         },
@@ -42,7 +43,7 @@ export class ClassificadorComponent implements OnInit {
 
   remove(){
     this.lock = true;
-    this.subs.push(this.apiService.deleteRequest(this.frase.id)
+    this.subs.push(this.apiService.deleteRequest(this.frase.id,0)
         .subscribe((res:any) => {
               this.getNew();
             },

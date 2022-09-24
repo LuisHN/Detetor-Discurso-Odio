@@ -10,6 +10,7 @@ import { Connection } from 'mysql2';
 import { v4 as uuidv4 } from 'uuid';
 import { CreateExtensaoDTO } from './create-extensao.dto';
 import { rejects } from 'assert';
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const redis = require('redis');
 const publisher = redis.createClient();
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -70,7 +71,7 @@ export class ExtensaoService {
 
   async StringsByHash(hash: string) {
     const classString = await this.connection.query(
-      'SELECT id, string, classification FROM strings WHERE clientHash = ? and deleted = 0 ;',
+      'SELECT id, string, classification, sortedByOwner as classifiedO FROM strings WHERE clientHash = ? and deleted = 0 ;',
       [hash],
     );
 

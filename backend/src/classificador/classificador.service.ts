@@ -7,8 +7,7 @@ import {
 } from '@nestjs/common';
 import { InjectClient } from 'nest-mysql';
 import { Connection } from 'mysql2';
-import { CreateClassificadorDTO } from './create-classsificador.dto';
-import { DeleteClassificadorDTO } from './delete-classsificador.dto';
+import { CreateClassificadorDTO } from './create-classsificador.dto'; 
 import { GetClassificadorDTO } from './get-classsificador.dto';
 import { ExtensaoService } from 'src/extensao/extensao.service';
 
@@ -22,10 +21,10 @@ export class ClassificadorService {
 
   async getOneString() {
     const classString = await this.connection.query(
-      'SELECT * FROM classification WHERE needClassification = 1 and deleted < 2 limit 1;',
+      'SELECT * FROM strings WHERE needClassification = 1 and sortedByOwner = 1 and deleted < 2 limit 1;',
     );
 
-    if (!classString) {
+    if (!classString || classString[0].length == 0) {
       throw new NotFoundException();
     }
     const { id, string } = classString[0][0];
@@ -37,7 +36,7 @@ export class ClassificadorService {
 
   async getOneStringByID(id: number) {
     const classString = await this.connection.query(
-      'SELECT * FROM classification WHERE id = ? limit 1',
+      'SELECT * FROM string WHERE id = ? and deleted < 3 limit 1',
       [id],
     );
 
@@ -84,8 +83,10 @@ export class ClassificadorService {
       if (st.length == 1) {
         for (let i = 1; i < 5; i++) {
           if (st[0][`classification_${i}`] == null) {
-            query = `UPDATE classification SET classification_${i}=? ${
+            query = `UPDATE strings SET classification_${i}=? ${
               i == 4 ? ',needClassification = 0' : ''
+            } ${
+              createClassificadorDTO.isOwner ? 'sortedByOwner = 1' : ''
             } WHERE id=?`;
             break;
           }
@@ -105,13 +106,16 @@ export class ClassificadorService {
     }
   }
 
-  async deleteString(deleteClassificadorDTO: DeleteClassificadorDTO) {
+  async deleteString(id: any, isOwner: any) {
     try {
-      const { id } = deleteClassificadorDTO;
+      let deleted = 1;
+      if (isOwner == '1') {
+        deleted = 4;
+      }
 
       await this.connection.query(
-        'UPDATE classification SET deleted= deleted + 1 WHERE id=?',
-        [id],
+        'UPDATE strings SET deleted= deleted + ? WHERE id=?',
+        [deleted, id],
       );
       return '';
     } catch (err) {

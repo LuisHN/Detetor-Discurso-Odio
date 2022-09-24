@@ -97,21 +97,21 @@
             <button
               class="btn btn-primary"
               style="margin-right: 5px"
-              (click)="setType({ odio: 0, normal: 1 })"
+              (click)="setType({ odio: 0, normal: 1, id : item?.id })"
             >
               Normal
             </button>
             <button
               class="btn btn-danger"
               style="margin-right: 5px"
-              (click)="setType({ odio: 1, normal: 0 })"
+              (click)="setType({ odio: 1, normal: 0 , id : item?.id})"
             >
               Ódio
             </button>
             <button
               class="btn btn-warning"
               style="margin-right: 5px"
-              (click)="remove()"
+              (click)="remove(item?.id)"
             >
               Eliminar
             </button>

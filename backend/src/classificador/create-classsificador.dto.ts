@@ -6,4 +6,6 @@ export class CreateClassificadorDTO {
 
   @IsNumberString()
   id: number;
+
+  isOwner: number;
 }
