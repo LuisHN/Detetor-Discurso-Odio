@@ -9,12 +9,23 @@ import { InjectClient } from 'nest-mysql';
 import { Connection } from 'mysql2';
 import { CreateClassificadorDTO } from './create-classsificador.dto';
 import { DeleteClassificadorDTO } from './delete-classsificador.dto';
-import { query } from 'express';
 import { GetClassificadorDTO } from './get-classsificador.dto';
+const redis = require('redis');
+const publisher = redis.createClient();
 
 @Injectable()
 export class ClassificadorService {
-  constructor(@InjectClient() private readonly connection: Connection) {}
+  constructor(@InjectClient() private readonly connection: Connection) {
+    this.init();
+  }
+  async init() {
+    try {
+      await publisher.connect();
+    } catch(err) {
+
+    }
+    
+  }
   async getOneString() {
     const classString = await this.connection.query(
       'SELECT * FROM classification WHERE needClassification = 1 and deleted < 2 limit 1;',
@@ -44,6 +55,13 @@ export class ClassificadorService {
 
   async getClassification(getClassificadorDTO: GetClassificadorDTO) {
     //insert into job queue urgents
+    console.log('entrei'); 
+    
+    await publisher.publish(
+      'channel-classificador',
+      '3',
+    );
+    
   }
 
   async setClassification(createClassificadorDTO: CreateClassificadorDTO) {

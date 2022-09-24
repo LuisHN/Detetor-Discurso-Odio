@@ -9,20 +9,10 @@ import { ExtensaoService } from './extensao/extensao.service';
 import { ExtensaoModule } from './extensao/extensao.module';
 import { ConfigModule } from '@nestjs/config';
 import { ConfigService } from '@nestjs/config';
-import { BullModule } from '@nestjs/bull';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ envFilePath: '.env', isGlobal: true }),
-    BullModule.forRoot({
-      redis: {
-        host: 'localhost',
-        port: 6379,
-      },
-    }),
-    BullModule.registerQueue({
-      name: 'classify-queue',
-    }),
     MysqlModule.forRoot({
       host: 'localhost',
       port: 3306,
