@@ -8,6 +8,18 @@ connection = mysql.connector.connect(host='localhost',
                                         user='root',
                                         password='pdadolp#2022')
 
+def normalizeSentenceWithoutOwner():
+    try:
+        if connection.is_connected():
+            cursor = connection.cursor()
+            sql = "update strings set sortedByOwner = 1 where sortedByOwner = 0 and created_at < (now() - interval 6 hour );"    
+            cursor.execute(sql, val)
+            connection.commit()
+            cursor.close() 
+
+    except Error as e:
+        print("Error while connecting to MySQL", e)
+
 def getInformation(connection):
     try:
         if connection.is_connected():
@@ -49,7 +61,8 @@ for item in dados:
         classification = 0
     
     updateString(connection, id, classification)
- 
+
+normalizeSentenceWithoutOwner() 
 
 connection.close()
      
