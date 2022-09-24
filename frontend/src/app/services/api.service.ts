@@ -22,6 +22,10 @@ export class ApiService {
     return this.http.get(`https://api.dadol.pt/extensao/${hash}`);
   }
 
+  postRequest( body:any){
+    return this.http.post(`https://api.dadol.pt/classificador`, body,  {...this.httpOptions,   observe: 'response'}) ;
+  }
+
   putRequest( body:any, id:any){
     return this.http.put(`https://api.dadol.pt/classificador/${id}`, body,  {...this.httpOptions,   observe: 'response'}) ;
   }

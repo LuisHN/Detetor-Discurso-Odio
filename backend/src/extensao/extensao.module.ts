@@ -4,6 +4,7 @@ import { ExtensaoService } from './extensao.service';
 
 @Module({
   imports: [],
+  exports: [ExtensaoService],
   providers: [ExtensaoService],
   controllers: [ExtensaoController],
 })

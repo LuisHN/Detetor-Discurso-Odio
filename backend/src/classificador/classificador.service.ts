@@ -10,22 +10,17 @@ import { Connection } from 'mysql2';
 import { CreateClassificadorDTO } from './create-classsificador.dto';
 import { DeleteClassificadorDTO } from './delete-classsificador.dto';
 import { GetClassificadorDTO } from './get-classsificador.dto';
-const redis = require('redis');
-const publisher = redis.createClient();
+import { ExtensaoService } from 'src/extensao/extensao.service';
+
 
 @Injectable()
 export class ClassificadorService {
-  constructor(@InjectClient() private readonly connection: Connection) {
-    this.init();
-  }
-  async init() {
-    try {
-      await publisher.connect();
-    } catch(err) {
-
-    }
-    
-  }
+  delay = (ms) => new Promise((res) => setTimeout(res, ms));
+  constructor(
+    @InjectClient() private readonly connection: Connection,
+    private extensaoService: ExtensaoService,
+  ) {}
+  
   async getOneString() {
     const classString = await this.connection.query(
       'SELECT * FROM classification WHERE needClassification = 1 and deleted < 2 limit 1;',
@@ -54,14 +49,32 @@ export class ClassificadorService {
   }
 
   async getClassification(getClassificadorDTO: GetClassificadorDTO) {
-    //insert into job queue urgents
-    console.log('entrei'); 
-    
-    await publisher.publish(
-      'channel-classificador',
-      '3',
-    );
-    
+    const hash = this.extensaoService.getHash();
+
+    this.extensaoService
+      .addStrings({
+        strings: [getClassificadorDTO.string],
+        hash,
+      })
+      .then()
+      .catch();
+
+    let classification = undefined;
+
+    await this.delay(5000);
+
+    try {
+      classification = await this.extensaoService.StringsByHash(hash);
+    } catch (e) {
+      return {
+        hash,
+      };
+    }
+
+    return {
+      hash,
+      classification,
+    };
   }
 
   async setClassification(createClassificadorDTO: CreateClassificadorDTO) {

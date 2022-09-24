@@ -107,3 +107,35 @@
     </svg>
   </a>
 </p>
+
+<h2 class="info" style="text-align: center">Classificar Frase/expressão</h2>
+<div class="row">
+  <div class="col-10">
+    <input
+      type="text"
+      [(ngModel)]="string"
+      class="form-control"
+      placeholder="Insira aqui a sua frase"
+    />
+  </div>
+   
+  <div class="col-2">
+    <div class="spinner-border" role="status" *ngIf="loading"> 
+    </div>
+ 
+    <button class="btn btn-primary" [disabled]="string.length == 0" (click)="classifyString()" *ngIf="!loading">
+      Classificar
+    </button>
+  </div>
+  <span>Apenas serão consideradas frases em lingua portuguesa. </span>
+ 
+
+  <div class="col-12" *ngIf="loading">
+    <span >Aguarde, pode demorar até 5 segundos para obter a sua classficação.</span>
+  </div>
+</div>
+
+<div class="col-12">
+  {{response | json}}
+</div>
+
