@@ -34,9 +34,9 @@ def getInformation(id):
 
 def percentage(part, whole):
   percentage = 100 * float(part)/float(whole)
-  return str(percentage) + "%"
+  return percentage
 
-def setClassification(id, classification, string, hash):
+def setClassification(id, classification, string, hash): 
     try:
         connection = mysql.connector.connect(host='localhost',
                                              database='HATE_DETECTOR',
@@ -45,7 +45,7 @@ def setClassification(id, classification, string, hash):
         if connection.is_connected():
             cursor = connection.cursor()
             sql = "UPDATE database_ORIG SET classified = 1 WHERE id = %s ;"
-            val = id
+            val = (id,)
             cursor.execute(sql, val)
             sql = "INSERT INTO strings (string, clientHash, classification) values (%s, %s, %s);"
             val = (string, hash, classification)
@@ -64,7 +64,7 @@ def setClassification(id, classification, string, hash):
 
 def classificador(id):
  
-    message =  getInformation(id)
+    message = getInformation(id)
     
     if message[0] == 0:
          return 'erro'
@@ -98,9 +98,9 @@ def classificador(id):
         if percentage(total, 3) > 66:
             classification = 1
         else:
-            classification = knn
-
-        setClassification(id, classification, str(message[0]), str(message[2]))
+            classification = knn   
+ 
+        setClassification(id, classification, str(message[0]), str(message[1]))
     except Exception as e:  
         print(e) 
 
