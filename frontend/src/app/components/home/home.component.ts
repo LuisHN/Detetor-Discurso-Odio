@@ -10,7 +10,7 @@ export class HomeComponent implements OnInit {
   string = '';
   loading = false;
   subs:any = [];
-  response = undefined;
+  response: any = undefined;
   constructor(private apiService: ApiService) { }
 
   ngOnInit(): void {
@@ -28,7 +28,7 @@ export class HomeComponent implements OnInit {
                     .subscribe((res: any) => {
                       this.loading = false;
                       this.string = '';
-                      this.response = res;
+                      this.response = res.body;
                     },
                     (err) => {
                       alert('Ocorreu um erro a processar o seu pedido.');
@@ -39,4 +39,10 @@ export class HomeComponent implements OnInit {
 
   }
 
+  getClassificationLabel(classification: any) {
+    if (classification) {
+      return (classification == 1) ? 'Discurso de ódio' : 'Discurso normal'
+    }
+    return 'Resultados pendentes. Consulte mais tarde la tab lista Hash.'
+  }
 }

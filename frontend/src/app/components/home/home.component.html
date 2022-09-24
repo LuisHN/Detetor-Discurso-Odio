@@ -136,6 +136,18 @@
 </div>
 
 <div class="col-12">
+  <h3>Resultados</h3>
+  <p><b>Hash:</b> {{response?.hash}}</p>
+  <div *ngIf="response?.classification?.length != 0">
+    <p><b>Frase:</b> {{response?.classification[0].string}}</p>
+    <p><b>Classificação:</b> {{getClassificationLabel(response?.classification[0].classification)}}</p>
+  </div>
+
+  <div *ngIf="response?.classification?.length == 0">
+    <p>Resultados pendentes. Consulte mais tarde la tab lista Hash.</p>
+  </div>
+  
+
   {{response | json}}
 </div>
 

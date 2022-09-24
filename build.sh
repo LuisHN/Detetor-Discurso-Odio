@@ -21,3 +21,4 @@ pm2 start classificador.py --name classificador --interpreter python3
 cd  /opt/work/Detetor-Discurso-Odio/backend/dist
 pm2 start dist/main.js --name backend
 
+pm2 restart all
