@@ -56,7 +56,7 @@ export class ClassificadorComponent implements OnInit {
   getNew() {
     this.subs.push(this.apiService.getRequest()
         .subscribe((res:any) => { 
-            this.frase = res.body[0];
+            this.frase = res.body;
             this.msg = ''; 
         },
         (err) => {
