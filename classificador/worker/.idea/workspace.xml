@@ -2,19 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="25374d66-e745-41bf-87cf-bb9d6592217b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/worker.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modelUpgrade.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/utils/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/utils/utils.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dataset/dataset.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../dataset/dataset.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../model/model_ML.pkcls" beforeDir="false" afterPath="$PROJECT_DIR$/../model/model_ML.pkcls" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/classificador.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../infrastructure/setup.sh" beforeDir="false" afterPath="$PROJECT_DIR$/../../infrastructure/setup.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/normalizador.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../backend/db/creation.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../../backend/db/creation.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../backend/src/classificador/classificador.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../backend/src/classificador/classificador.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../backend/src/extensao/extensao.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../backend/src/extensao/extensao.controller.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,14 +35,14 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
-    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "/Users/luishenrique/Developer/private/Tese/Detetor-Discurso-Odio/classificador/worker"
+  }
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\Tese\git\Detetor-Discurso-Odio\classificador\worker" />
@@ -120,6 +112,7 @@
       <option name="presentableId" value="Default" />
       <updated>1663953897369</updated>
       <workItem from="1663953901399" duration="9850000" />
+      <workItem from="1664032289281" duration="118000" />
     </task>
     <servers />
   </component>
@@ -141,7 +134,7 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/worker$main.coverage" NAME="modelUpgrade Coverage Results" MODIFIED="1663974778137" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/worker$classificador.coverage" NAME="classificador Coverage Results" MODIFIED="1663974803393" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/worker$main.coverage" NAME="modelUpgrade Coverage Results" MODIFIED="1663974778137" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

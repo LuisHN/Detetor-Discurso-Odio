@@ -19,3 +19,8 @@ def text_preprocessing(text):
             word_Final = word_Lemmatized.lemmatize(word)
             Final_words.append(word_Final)
     return str(Final_words)
+
+
+def percentage(part, whole):
+  percentage = 100 * float(part)/float(whole)
+  return percentage

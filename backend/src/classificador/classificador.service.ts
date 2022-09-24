@@ -7,7 +7,7 @@ import {
 } from '@nestjs/common';
 import { InjectClient } from 'nest-mysql';
 import { Connection } from 'mysql2';
-import { CreateClassificadorDTO } from './create-classsificador.dto'; 
+import { CreateClassificadorDTO } from './create-classsificador.dto';
 import { GetClassificadorDTO } from './get-classsificador.dto';
 import { ExtensaoService } from 'src/extensao/extensao.service';
 
@@ -84,7 +84,9 @@ export class ClassificadorService {
         for (let i = 1; i < 5; i++) {
           if (st[0][`classification_${i}`] == null) {
             query = `UPDATE strings SET classification_${i}=? ${
-              i == 4 ? ',needClassification = 0' : ''
+              i == 4
+                ? ',needClassification = 0, readyToFinalClassification=1'
+                : ''
             } ${
               createClassificadorDTO.isOwner ? ',sortedByOwner = 1' : ''
             } WHERE id=?`;

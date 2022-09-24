@@ -30,7 +30,7 @@ export class ExtensaoController {
   @ApiOperation({ summary: 'Devolve items criados por determinado Hash.' })
   @ApiParam({
     name: 'hash',
-    required: true
+    required: true,
   })
   @ApiResponse({
     status: 200

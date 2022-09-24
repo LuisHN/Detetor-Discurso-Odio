@@ -51,3 +51,7 @@ ln -s /opt/certbot/bin/certbot /usr/bin/certbot
 # Create Certificate for domain, change $MyDomain and myEmail@email.com
 
 certbot certonly --standalone -d $MyDomain --non-iteractive --agree-tos --email myEmail@email.com --http-01-port=8888
+
+#cron jobs
+crontab -l | { cat; echo "0 */6 * * * node /opt/work/Detetor-Discurso-Odio/classificador/worker/csvUpdate.js"; } | crontab -
+crontab -l | { cat; echo "0 1 * * * python3 /opt/work/Detetor-Discurso-Odio/classificador/worker/modelUpgrade.py"; } | crontab -

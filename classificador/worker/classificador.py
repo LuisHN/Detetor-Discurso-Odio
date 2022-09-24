@@ -1,5 +1,7 @@
 import pickle
 import base64
+
+from utils.utils import percentage
 from utils.utils import text_preprocessing
 from redis import StrictRedis
 from time import strftime, sleep
@@ -32,9 +34,6 @@ def getInformation(id):
             connection.close()
             print("MySQL connection is closed")
 
-def percentage(part, whole):
-  percentage = 100 * float(part)/float(whole)
-  return percentage
 
 def setClassification(id, classification, string, hash): 
     try:
