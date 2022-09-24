@@ -71,7 +71,7 @@ export class ExtensaoService {
 
   async StringsByHash(hash: string) {
     const classString = await this.connection.query(
-      'SELECT id, string, classification, sortedByOwner as classifiedO FROM strings WHERE clientHash = ? and deleted = 0 and classifiedO = 0;',
+      'SELECT id, string, classification, sortedByOwner as classifiedO FROM strings WHERE clientHash = ? and deleted = 0 and sortedByOwner = 0;',
       [hash],
     );
 

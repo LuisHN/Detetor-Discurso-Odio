@@ -1,5 +1,5 @@
 import { Body, Controller, Get, HttpCode, Param, Post } from '@nestjs/common';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreateExtensaoDTO } from './create-extensao.dto';
 import { ExtensaoService } from './extensao.service';
 @ApiTags('extensao')
@@ -28,8 +28,12 @@ export class ExtensaoController {
 
   @Get(':hash')
   @ApiOperation({ summary: 'Devolve items criados por determinado Hash.' })
+  @ApiParam({
+    name: 'hash',
+    required: true
+  })
   @ApiResponse({
-    status: 200,
+    status: 200
   })
   StringsByHash(@Param('hash') hash) {
     return this.extensaoService.StringsByHash(hash);
