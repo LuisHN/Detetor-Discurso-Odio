@@ -86,7 +86,7 @@ export class ClassificadorService {
             query = `UPDATE strings SET classification_${i}=? ${
               i == 4 ? ',needClassification = 0' : ''
             } ${
-              createClassificadorDTO.isOwner ? 'sortedByOwner = 1' : ''
+              createClassificadorDTO.isOwner ? ',sortedByOwner = 1' : ''
             } WHERE id=?`;
             break;
           }
