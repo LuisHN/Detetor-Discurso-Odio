@@ -36,7 +36,7 @@ export class ClassificadorService {
 
   async getOneStringByID(id: number) {
     const classString = await this.connection.query(
-      'SELECT * FROM string WHERE id = ? and deleted < 3 limit 1',
+      'SELECT * FROM strings WHERE id = ? and deleted < 3 limit 1',
       [id],
     );
 

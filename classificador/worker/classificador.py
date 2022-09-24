@@ -95,10 +95,11 @@ def classificador(id):
 
         total = svm + knn + stack
         classification = 0
-        if percentage(total, 3) > 66:
+ 
+        if percentage(total, 3) > 67:
             classification = 1
         else:
-            classification = knn   
+            classification = int(knn)   
  
         setClassification(id, classification, str(message[0]), str(message[1]))
     except Exception as e:  
