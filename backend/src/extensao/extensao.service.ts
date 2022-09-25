@@ -109,9 +109,12 @@ export class ExtensaoService {
     return uuidv4();
   }
 
-  async StringsByHash(hash: string) {
+  async StringsByHash(hash: string, _isClassificador = false) {
+    const table = _isClassificador ? 'strings' : 'database_ORIG';
     const classString = await this.connection.query(
-      'SELECT id, string, classification, sortedByOwner as classifiedO FROM strings WHERE clientHash = ? and deleted = 0 and sortedByOwner = 0;',
+      'SELECT id, string, classification, sortedByOwner as classifiedO FROM ' +
+        table +
+        '  WHERE clientHash = ? and deleted = 0 and sortedByOwner = 0;',
       [hash],
     );
 

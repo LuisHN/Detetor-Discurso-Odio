@@ -65,7 +65,7 @@ export class ClassificadorService {
     await this.delay(5000);
 
     try {
-      classification = await this.extensaoService.StringsByHash(hash);
+      classification = await this.extensaoService.StringsByHash(hash, true);
     } catch (e) {
       return {
         hash,
