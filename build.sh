@@ -14,6 +14,7 @@ npm run build
 
 cd /opt/work/Detetor-Discurso-Odio/classificador/worker
 pip install -r requirements.txt
+npm install
 
 pm2 stop all
 pm2 start classificador.py --name classificador --interpreter python3
