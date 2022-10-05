@@ -6,7 +6,7 @@ const publisher = redis.createClient();
 
 
 let connection = mysql.createConnection(config);
-
+let ids = [];
 
 delay = (ms) => new Promise((res) => setTimeout(res, ms));
  
@@ -31,40 +31,29 @@ const updateRecord = (id, hash) => {
 }
 
 const start = async () => {
-    try {
-        await publisher.connect();
-      } catch (err) { 
-      }
-    
+    let ids = [];
     const records = await getUnClassified();
 
     records.forEach(async element => {
+        console.log(element)
         if (element.clientHash.length == 0) {
             element.clientHash = uuidv4();
             await updateRecord(element.id,element.clientHash); 
         }
+ 
+        ids.push(element.id.toString());      
         
-       const a = await publisher.publish('tese', String(element.id));   
-       console.log(a)  
+ 
        await  delay(10000)
     });
+
+    await publisher.connect(); 
+    for (let i = 0; i< ids.length ; i++) 
+         await publisher.publish('channel-classificador', ids[0]) 
+
     process.exit(0);
 }
-
-
-
-start();
+  
+    
+start(); 
  
-
-(async () => {
-
-    const article = {
-      id: '123456',
-      name: 'Using Redis Pub/Sub with Node.js',
-      blog: 'Logrocket Blog',
-    };
-  
-    await publisher.connect();
-  
-    await publisher.publish('article', JSON.stringify(article));
-  })();
