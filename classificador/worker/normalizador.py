@@ -13,7 +13,7 @@ def normalizeSentenceWithoutOwner():
         if connection.is_connected():
             cursor = connection.cursor()
             sql = "update strings set sortedByOwner = 1 where sortedByOwner = 0 and created_at < (now() - interval 6 hour );"    
-            cursor.execute(sql, val)
+            cursor.execute(sql)
             connection.commit()
             cursor.close() 
 

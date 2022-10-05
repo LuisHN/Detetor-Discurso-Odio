@@ -11,6 +11,10 @@ export class HomeComponent implements OnInit {
   loading = false;
   subs:any = [];
   response: any = undefined;
+  display = 'none';
+  hideClassificador = true;
+  step = 1;
+  type = '';
   constructor(private apiService: ApiService) { }
 
   ngOnInit(): void {
@@ -29,20 +33,46 @@ export class HomeComponent implements OnInit {
                       this.loading = false;
                       this.string = '';
                       this.response = res.body;
+                      this.hideClassificador = false;
                     },
                     (err) => {
                       alert('Ocorreu um erro a processar o seu pedido.');
                       this.loading = false;
                       this.string = '';
                       this.response = undefined;
+                      this.hideClassificador = true;
                     }));
 
   }
 
-  getClassificationLabel(classification: any) {
-    if (classification) {
+  getClassificationLabel(classification: any) { 
+    if (classification == 0 || classification == 1) {
       return (classification == 1) ? 'Discurso de ódio' : 'Discurso normal'
     }
     return 'Resultados pendentes. Consulte mais tarde la tab lista Hash.'
   }
+
+  setType(payload: any) {
+    payload['isOwner']  = 1;
+    this.subs.push(this.apiService.putRequest(payload)
+        .subscribe((res:any) => { 
+          alert("Classificado com sucesso");
+          this.hideClassificador = true;
+        },
+            err=> { 
+               alert("Ocorreu um erro. tente novamente")
+            }))
+  }
+
+  remove(id: any){ 
+    this.subs.push(this.apiService.deleteRequest(id, 1)
+        .subscribe((res:any) => { 
+          alert("Removido com sucesso");
+          this.hideClassificador = true;
+            },
+            err=> { 
+              alert("Ocorreu um erro. tente novamente")
+            }))
+  }
+
 }

@@ -43,70 +43,30 @@
 
   <span>{{ title }}</span>
 
-  <svg
-    id="rocket-smoke"
-    xmlns="http://www.w3.org/2000/svg"
-    width="516.119"
-    height="1083.632"
-    viewBox="0 0 516.119 1083.632"
-  >
-    <title>Rocket Ship Smoke</title>
-    <path
-      id="Path_40"
-      data-name="Path 40"
-      d="M644.6,141S143.02,215.537,147.049,870.207s342.774,201.755,342.774,201.755S404.659,847.213,388.815,762.2c-27.116-145.51-11.551-384.124,271.9-609.1C671.15,139.365,644.6,141,644.6,141Z"
-      transform="translate(-147.025 -140.939)"
-      fill="#f5f5f5"
-    />
-  </svg>
+ 
 </div>
 
-<!-- Resources -->
-<h2 class="info">Informação</h2>
-<p style="margin: 15px">
-  Esta plataforma foi desenvolvida no âmbito da dissertação de mestrado de
-  Cibersegurança e Informática Forense no
-  <a
-    href="https://www.ipleiria.pt/curso/mestrado-em-ciberseguranca-e-informatica-forense/"
-    target="_blank"
-    >instituto Politécnico de Leiria</a
-  >
-</p>
+<div class="row">
+  <div class="col-12"> 
+    <h2 class="info">Informação</h2>
+    <p style="margin: 15px">
+      Esta plataforma foi desenvolvida no âmbito da dissertação de mestrado de
+      Cibersegurança e Informática Forense no
+      <a
+        href="https://www.ipleiria.pt/curso/mestrado-em-ciberseguranca-e-informatica-forense/"
+        target="_blank"
+        >instituto Politécnico de Leiria</a
+      >
+    </p>
+  </div>
 
-<p style="margin: 15px">
-  <a
-    href="https://github.com/LuisHN/Detetor-Discurso-Odio"
-    target="_blank"
-    style="margin: 15px"
-  >
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="75"
-      height="75"
-      viewBox="0 0 24 24"
-    >
-      <path
-        d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
-      />
-    </svg>
-  </a>
-  <a
-    href="https://www.linkedin.com/in/luis-henrique-neves/"
-    target="_blank"
-    style="margin: 15px"
-  >
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="75"
-      height="75"
-      viewBox="0 0 24 24"
-    >
-      <path
-        d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-2 16h-2v-6h2v6zm-1-6.891c-.607 0-1.1-.496-1.1-1.109 0-.612.492-1.109 1.1-1.109s1.1.497 1.1 1.109c0 .613-.493 1.109-1.1 1.109zm8 6.891h-1.998v-2.861c0-1.881-2.002-1.722-2.002 0v2.861h-2v-6h2v1.093c.872-1.616 4-1.736 4 1.548v3.359z"
-      />
-    </svg>
-  </a>
-</p>
+  <div class="col text-center">
+ 
+    <button class="mx-auto btn btn-primary" (click)="display = 'block'" > Como funciona?</button>
+  </div>
+</div>
+
+ 
 
 <h2 class="info" style="text-align: center">Classificar Frase/expressão</h2>
 <div class="row">
@@ -122,12 +82,13 @@
   <div class="col-2">
     <div class="spinner-border" role="status" *ngIf="loading"> 
     </div>
- 
-    <button class="btn btn-primary" [disabled]="string.length == 0" (click)="classifyString()" *ngIf="!loading">
+    <button class="btn btn-primary" [disabled]="string.length == 0 || string.split(' ').length == 2" (click)="classifyString()" *ngIf="!loading">
       Classificar
     </button>
   </div>
-  <span>Apenas serão consideradas frases em lingua portuguesa. </span>
+  <span class="text-warning">Apenas serão consideradas frases em lingua portuguesa. </span>
+  <span class="text-danger" *ngIf="string.split(' ').length < 3">Minimo três palavras</span>
+
  
 
   <div class="col-12" *ngIf="loading">
@@ -141,11 +102,176 @@
   <div *ngIf="response?.classification?.length != 0">
     <p><b>Frase:</b> {{response?.classification[0].string}}</p>
     <p><b>Classificação:</b> {{getClassificationLabel(response?.classification[0].classification)}}</p>
+
+    <div class="row" *ngIf="!hideClassificador">
+      <div class="col" >
+        <button
+        class="btn btn-primary"
+        style="margin-right: 5px"
+        (click)="setType({ classification: 0, id : response?.classification[0]?.id })"
+      >
+        Normal
+      </button>
+      <button
+        class="btn btn-danger"
+        style="margin-right: 5px"
+        (click)="setType({ classification: 1 , id : response?.classification[0]?.id})"
+      >
+        Ódio
+      </button>
+      <button
+        class="btn btn-warning"
+        style="margin-right: 5px"
+        (click)="remove(response?.id)"
+      >
+        Eliminar
+      </button>
+      </div>
+    </div>
   </div>
 
   <div *ngIf="response?.classification?.length == 0">
-    <p>Resultados pendentes. Consulte mais tarde la tab lista Hash.</p>
+    <p>Resultados pendentes. Consulte mais tarde a tab lista Hash.</p>
   </div>
 
 </div>
 
+<div class="row" style="margin-top: 100px;">
+  <div class="col-12">
+    <p class="mx-auto">
+      <a
+        href="https://github.com/LuisHN/Detetor-Discurso-Odio"
+        target="_blank"
+        style="margin: 15px"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="75"
+          height="75"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
+          />
+        </svg>
+      </a>
+      <a
+        href="https://www.linkedin.com/in/luis-henrique-neves/"
+        target="_blank"
+        style="margin: 15px"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="75"
+          height="75"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-2 16h-2v-6h2v6zm-1-6.891c-.607 0-1.1-.496-1.1-1.109 0-.612.492-1.109 1.1-1.109s1.1.497 1.1 1.109c0 .613-.493 1.109-1.1 1.109zm8 6.891h-1.998v-2.861c0-1.881-2.002-1.722-2.002 0v2.861h-2v-6h2v1.093c.872-1.616 4-1.736 4 1.548v3.359z"
+          />
+        </svg>
+      </a>
+    </p>
+  </div>
+</div>
+
+
+
+<div class="modal" [style.display]="display" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Com funciona</h5>
+        <button type="button" class="close" (click)="display = 'none'; step = 1" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="height: 700px;">
+        <ng-container *ngIf="step == 1">
+          <h5>Existem duas formas de adicionar frases para classificação:</h5>
+
+          <div class="row" style="margin-top: 50px">
+            <div class="col-md-6" (click)="step = 2; type = 'manual'">
+              <h5 class="text-center">Manual</h5> 
+                <img class="card-img-top" src="../../../assets/manual.png" style="margin-top: 15px;">
+      
+            </div>
+            <div class="col-md-6 mx-auto" (click)="step = 5; type = 'ext'">
+              <h5 class="text-center">Extensão</h5> 
+                <img class="card-img-top" src="../../../assets/extensao.png" style="margin-top: 15px;">
+
+            </div>
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="step == 2">
+          <h5>Classificação manual</h5>
+
+          <div class="row" style="margin-top: 50px">
+            <div class="col-md-12" (click)="step = 3">
+              <h5 class="text-center">Inserir Frase</h5> 
+                <img class="card-img-top" src="../../../assets/manual_frase.png" style="margin-top: 15px;"> 
+            </div> 
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="step == 3">
+          <h5>Classificação manual / Remoção</h5>
+
+          <div class="row" style="margin-top: 50px">
+            <div class="col-md-12" (click)="step = 4">
+              <h5 class="text-center">Classificar Frase</h5> 
+                <img class="card-img-top" src="../../../assets/manual_frase_classificar.png" style="margin-top: 15px;"> 
+            </div> 
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="step == 4">
+          <h5>Classificador</h5>
+          <span>Acessivel através do URL https://dadol.pt/#classificador</span> <br><br>
+          <span>Todas as frases/comentários são submetidos a quatro classificações manuais antes de serem consideradas válidas pelo sistema.</span>
+
+          <div class="row" style="margin-top: 50px">
+            <div class="col-md-12" (click)="step = 1"> 
+                <img class="card-img-top" src="../../../assets/classificador.png" style="margin-top: 15px;"> 
+            </div> 
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="step == 5">
+          <h5>Lista Hash</h5>
+          <span>Acessivel através do URL https://dadol.pt/#hash</span> <br><br>
+          <span>Todas as frases/comentários inseridas via extensão (ou manual) podem ser listadas através do hash gerado.</span>
+
+          <div class="row" style="margin-top: 50px">
+            <div class="col-md-12" (click)="step = 1"> 
+                <img class="card-img-top" src="../../../assets/lista.png" style="margin-top: 15px;"> 
+            </div> 
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="step == 6">
+          <h5>Classificador</h5>
+          <span>Acessivel através do URL https://dadol.pt/#classificador</span> <br><br>
+          <span>Todas as frases/comentários são submetidos a quatro classificações manuais antes de serem consideradas válidas pelo sistema.</span>
+
+          <div class="row" style="margin-top: 50px">
+            <div class="col-md-12" (click)="step = 1"> 
+                <img class="card-img-top" src="../../../assets/classificador_lista.png" style="margin-top: 15px;"> 
+            </div> 
+          </div>
+        </ng-container>
+
+        <div class="row">
+          <div class="col">
+            <button class="btn btn-primary" *ngIf="step > 1" (click)="step = 1" style="margin-right: 20px;"> Inicio</button>
+            <button class="btn btn-primary" *ngIf="step > 1 && (type == 'manual' ? step < 5 : step < 6)" (click)="step = step +1"> Seguinte</button>
+          </div>
+        </div>    
+      </div>
+      <div class="modal-footer"> 
+        <button type="button" class="btn btn-secondary" (click)="display = 'none'; step = 1">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>

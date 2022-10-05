@@ -27,9 +27,20 @@ export class ClassificadorService {
     if (!classString || classString[0].length == 0) {
       throw new NotFoundException();
     }
+
+    const {
+      classification_1,
+      classification_2,
+      classification_3,
+      classification_4,
+    } = classString[0][0];
+
+    const total =
+      classification_1 + classification_2 + classification_3 + classification_4;
+
     const { id, string } = classString[0][0];
 
-    const result = { id, string };
+    const result = { id, string, total };
 
     return result;
   }
