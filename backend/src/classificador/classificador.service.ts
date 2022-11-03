@@ -36,7 +36,10 @@ export class ClassificadorService {
     } = classString[0][0];
 
     const total =
-      classification_1 + classification_2 + classification_3 + classification_4;
+      (classification_1 != null ? 1 : 0) +
+      (classification_2 != null ? 1 : 0) +
+      (classification_3 != null ? 1 : 0) +
+      (classification_4 != null ? 1 : 0);
 
     const { id, string } = classString[0][0];
 
