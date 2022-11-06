@@ -1,5 +1,4 @@
 import {
-  BadRequestException,
   HttpException,
   HttpStatus,
   Injectable,
@@ -20,6 +19,9 @@ export class ClassificadorService {
   ) {}
 
   async getOneString() {
+    try {
+      this.connection.connect();
+    } catch (e) {}
     const classString = await this.connection.query(
       'SELECT * FROM strings WHERE needClassification = 1 and sortedByOwner = 1 and deleted < 2 ORDER BY RAND() limit 1;',
     );
@@ -49,6 +51,9 @@ export class ClassificadorService {
   }
 
   async getOneStringByID(id: number) {
+    try {
+      this.connection.connect();
+    } catch (e) {}
     const classString = await this.connection.query(
       'SELECT * FROM strings WHERE id = ? and deleted < 3 limit 1',
       [id],
@@ -94,6 +99,9 @@ export class ClassificadorService {
 
   async setClassification(createClassificadorDTO: CreateClassificadorDTO) {
     try {
+      this.connection.connect();
+    } catch (e) {}
+    try {
       const { classification, id } = createClassificadorDTO;
       const st = await this.getOneStringByID(id);
       let query = undefined;
@@ -126,6 +134,9 @@ export class ClassificadorService {
   }
 
   async deleteString(id: any, isOwner: any) {
+    try {
+      this.connection.connect();
+    } catch (e) {}
     try {
       let deleted = 1;
       if (isOwner == '1') {
