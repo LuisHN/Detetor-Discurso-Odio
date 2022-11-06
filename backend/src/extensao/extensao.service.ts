@@ -70,6 +70,10 @@ export class ExtensaoService {
     createExtensaoDTO: CreateExtensaoDTO,
     _isClassificador = false,
   ) {
+    try {
+      this.connection.connect();
+    } catch (e) {}
+
     return new Promise(async (resolve) => {
       try {
         const { strings, hash } = createExtensaoDTO;
@@ -110,6 +114,9 @@ export class ExtensaoService {
   }
 
   async StringsByHash(hash: string, _isClassificador = false) {
+    try {
+      this.connection.connect();
+    } catch (e) {}
     const classString = await this.connection.query(
       'SELECT id, string, classification, sortedByOwner as classifiedO FROM strings WHERE clientHash = ? and deleted = 0 and sortedByOwner = 0;',
       [hash],

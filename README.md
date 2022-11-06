@@ -27,6 +27,10 @@ como acontece atualmente para outros idiomas.
 - [@Luis Henrique](https://www.linkedin.com/in/luis-henrique-neves/)
 
 
-## Melhorias
+## Melhorias/RoadMap
+
+- Melhorar a interface do portal web
+- Melhorar e optimizar a extensão Google Chrome
+- Refinar a classificação para identificar discurso xenófobo, racista, de conteúdo sexual, entre outros. 
 
 
